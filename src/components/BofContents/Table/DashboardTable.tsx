@@ -1,118 +1,68 @@
 import React from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { ColumnDef } from "@tanstack/react-table";
+import DataTable from "./components/DataTable";
+import { DASHBOARDS } from "@/constants/bof.constant";
+import { EllipsisVertical } from "lucide-react";
+
+type Dashboard = (typeof DASHBOARDS)[number];
 
 interface DataTableProps {
-  data: [];
+  data: Dashboard[];
 }
 
 const DashboardTable = ({ data }: DataTableProps) => {
-  const columns: ColumnDef<typeof data>[] = [
+  const columns: ColumnDef<Dashboard>[] = [
     {
       accessorKey: "name",
-      header: () => <p>Name</p>,
+      header: () => <p className="text-base font-medium">Name</p>,
 
-      // cell: ({ row }) => {
-      //   return <div></div>;
-      // },
+      cell: ({ row }) => {
+        return <p className="text-sm font-medium">{row.original.name}</p>;
+      },
     },
     {
       accessorKey: "owner",
-      header: () => <p>Owner</p>,
+      header: () => <p className="text-base font-medium">Owner</p>,
 
-      // cell: ({ row }) => {
-      //   return <div></div>;
-      // },
+      cell: ({ row }) => {
+        return <p className="text-sm">{row.original.owner || "-"}</p>;
+      },
     },
     {
       accessorKey: "viewers",
-      header: () => <p>Viewers</p>,
-      // cell: ({ row }) => {
-      //   return <div></div>;
-      // },
+      header: () => <p className="text-base font-medium">Viewers</p>,
+      cell: ({ row }) => {
+        return <p className="text-sm">{row.original.viewers || "-"}</p>;
+      },
     },
     {
       accessorKey: "editors",
-      header: () => <p>Editors</p>,
-      // cell: ({ row }) => {
-      //   return <div></div>;
-      // },
+      header: () => <p className="text-base font-medium">Editors</p>,
+      cell: ({ row }) => {
+        return <p className="text-sm">{row.original.editors || "-"}</p>;
+      },
     },
     {
       accessorKey: "action",
-      header: () => <p> Action</p>,
+      header: () => (
+        <p className="text-base font-medium text-center w-full"> Action</p>
+      ),
 
-      // cell: ({ row }) => {
-      //   return <div></div>;
-      // },
+      cell: () => {
+        return (
+          <div className="flex justify-center">
+            <EllipsisVertical
+              className="w-4 h-4 cursor-pointer"
+              strokeWidth={2.5}
+            />
+          </div>
+        );
+      },
     },
   ];
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
-  return (
-    <div className="rounded-md border">
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </div>
-  );
+  return <DataTable columns={columns} data={data} />;
 };
 
 export default DashboardTable;

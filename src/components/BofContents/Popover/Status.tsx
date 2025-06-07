@@ -6,32 +6,36 @@ import {
 } from "@/components/ui/popover";
 import { IStatus } from "@/interface/bof.interface";
 import { cn } from "@/lib/utils";
-import { ChevronDown } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 
 interface StatusProps {
   list: IStatus[];
+  placeholder: string;
   status: string;
-  isError: boolean | undefined;
+  isError?: boolean | undefined;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleStatusChange: (newStatus: string) => void;
+  classNameTrigger?: string;
 }
 
 const Status = ({
   isError,
+  placeholder,
   status,
   list,
   isOpen,
   setIsOpen,
   handleStatusChange,
+  classNameTrigger,
 }: StatusProps) => {
   const selectedStatus = list.find((item) => item.value === status);
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger className="w-full cursor-pointer">
+      <PopoverTrigger className={cn("w-full cursor-pointer", classNameTrigger)}>
         <div
           className={cn(
-            "w-full flex items-center justify-between h-10 text-sm rounded-md border border-input",
+            "w-full flex items-center justify-between h-10 text-sm rounded-md border-2 border-gray-200",
             isError && "!border-destructive"
           )}
         >
@@ -41,14 +45,14 @@ const Status = ({
               status && "text-black"
             )}
           >
-            {status ? selectedStatus?.lable : "Select Status"}
+            {status ? selectedStatus?.lable : placeholder}
           </p>
           <ChevronDown
             className={cn("h-5 w-5 text-gray-400 mx-2", isOpen && "rotate-180")}
           />
         </div>
       </PopoverTrigger>
-      <PopoverContent className="min-w-full p-2 rounded-md">
+      <PopoverContent align="end" className="min-w-full p-2 rounded-md border">
         {list.map((item, i) => (
           <div
             key={i}
@@ -58,10 +62,14 @@ const Status = ({
             }}
             className={cn(
               "hover:bg-gray-100 rounded-md w-full p-2 cursor-pointer",
-              selectedStatus?.value === item.value && "bg-gray-200"
+              selectedStatus?.value === item.value &&
+                "bg-gray-200 flex flex-row justify-between"
             )}
           >
             <p className="text-sm">{item.lable}</p>
+            {selectedStatus?.value === item.value && (
+              <Check className="w-4 h-4 my-auto" />
+            )}
           </div>
         ))}
       </PopoverContent>

@@ -50,4 +50,45 @@ const menus = [
   },
 ];
 
-export { statuses, menus };
+const product_types = [
+  {
+    lable: "Business Projects",
+    value: "business",
+  },
+  {
+    lable: "Software Projects",
+    value: "sofeware",
+  },
+  {
+    lable: "Product Discovery",
+    value: "discovery",
+  },
+  {
+    lable: "Service Mangement",
+    value: "service",
+  },
+];
+
+// Project Table Data
+const PROJECTS = [
+  {
+    name: "Boilerplate",
+    key: "ECS",
+    type: "Team-managed software",
+    lead: "Apichaya Chuenjit",
+    projectUrl: null, // Replace with actual URL if known
+  },
+];
+
+// Dashboard Table Data
+const DASHBOARDS = [
+  {
+    name: "Default dashboard",
+    owner: null, // Owner name not shown in the image
+    viewers: "Public",
+    editors: "Private",
+    starredBy: "0 people",
+  },
+];
+
+export { statuses, menus, product_types, PROJECTS, DASHBOARDS };

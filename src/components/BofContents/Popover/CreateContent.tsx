@@ -99,6 +99,7 @@ const CreateContent = ({ handleClose }: CreateContentProps) => {
             * Status
           </p>
           <Status
+            placeholder="Select Status"
             isError={errors.status && !watch("status")}
             list={statuses}
             status={watch("status")}
