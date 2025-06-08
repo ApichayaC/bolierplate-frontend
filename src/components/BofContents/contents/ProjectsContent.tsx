@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 " use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProjectsFilter from "./components/ProjectsFilter";
@@ -13,6 +13,8 @@ const ProjectsContent = () => {
   const {
     isOpenDialog,
     projects,
+    project,
+    type,
     setIsOpenDialog,
     setProject,
     addProject,
@@ -29,6 +31,17 @@ const ProjectsContent = () => {
     });
     setIsOpenDialog(false);
   };
+
+  const projectsList = useMemo(() => {
+    return projects.filter((item) => {
+      const matchesType = type ? item.type === type : true;
+      const matchesProject = project
+        ? item.name.toLowerCase().includes(project.toLowerCase()) ||
+          item.key.toLowerCase().includes(project.toLowerCase())
+        : true;
+      return matchesType && matchesProject;
+    });
+  }, [project, type]);
 
   useEffect(() => {
     setProject("");
@@ -48,7 +61,7 @@ const ProjectsContent = () => {
       </div>
       <div className="mt-6 space-y-3">
         <ProjectsFilter />
-        <ProjectsTable data={projects} />
+        <ProjectsTable data={projectsList} />
       </div>
       <CreateProjectDialog
         isOpen={isOpenDialog}
