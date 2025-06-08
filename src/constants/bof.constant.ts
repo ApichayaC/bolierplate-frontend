@@ -57,7 +57,7 @@ const product_types = [
   },
   {
     lable: "Software Projects",
-    value: "sofeware",
+    value: "software",
   },
   {
     lable: "Product Discovery",
@@ -69,14 +69,40 @@ const product_types = [
   },
 ];
 
+const types = [
+  {
+    lable: "Team-managed business",
+    value: "business",
+  },
+  {
+    lable: "Team Managed Project",
+    value: "software",
+  },
+  {
+    lable: "Product Discovery",
+    value: "discovery",
+  },
+  {
+    lable: "Service management",
+    value: "service",
+  },
+];
+
 // Project Table Data
 const PROJECTS = [
   {
     name: "Boilerplate",
-    key: "ECS",
-    type: "Team-managed software",
+    key: "BOI",
+    type: "software",
     lead: "Apichaya Chuenjit",
     projectUrl: null, // Replace with actual URL if known
+  },
+  {
+    name: "My Discovery Project",
+    key: "MDP",
+    type: "discovery",
+    lead: "Apichaya Chuenjit",
+    projectUrl: null,
   },
 ];
 
@@ -91,4 +117,4 @@ const DASHBOARDS = [
   },
 ];
 
-export { statuses, menus, product_types, PROJECTS, DASHBOARDS };
+export { statuses, menus, product_types, types, PROJECTS, DASHBOARDS };

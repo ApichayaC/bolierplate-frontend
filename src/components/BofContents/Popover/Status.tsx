@@ -17,6 +17,7 @@ interface StatusProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleStatusChange: (newStatus: string) => void;
   classNameTrigger?: string;
+  classNameContent?: string;
 }
 
 const Status = ({
@@ -28,6 +29,7 @@ const Status = ({
   setIsOpen,
   handleStatusChange,
   classNameTrigger,
+  classNameContent,
 }: StatusProps) => {
   const selectedStatus = list.find((item) => item.value === status);
   return (
@@ -52,7 +54,10 @@ const Status = ({
           />
         </div>
       </PopoverTrigger>
-      <PopoverContent align="end" className="min-w-full p-2 rounded-md border">
+      <PopoverContent
+        align="end"
+        className={cn("p-2 rounded-md border min-w-full", classNameContent)}
+      >
         {list.map((item, i) => (
           <div
             key={i}

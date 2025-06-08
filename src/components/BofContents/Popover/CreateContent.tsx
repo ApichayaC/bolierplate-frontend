@@ -82,7 +82,7 @@ const CreateContent = ({ handleClose }: CreateContentProps) => {
               setValue("project_name", value);
             }}
             className={cn(
-              "text-sm rounded-md focus-visible:ring-0 h-10 px-3 shadow-none placeholder:text-muted-foreground",
+              "text-sm rounded-md focus-visible:ring-0 h-10 px-3 shadow-none placeholder:text-muted-foreground border-2",
               errors.project_name &&
                 !watch("project_name") &&
                 "!border-destructive"
